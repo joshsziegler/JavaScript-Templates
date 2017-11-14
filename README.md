@@ -1,12 +1,8 @@
 # JavaScript Templates
 
-## Demo
-[JavaScript Templates Demo](https://blueimp.github.io/JavaScript-Templates/)
-
 ## Description
 1KB lightweight, fast & powerful JavaScript templating engine with zero
-dependencies. Compatible with server-side environments like Node.js, module
-loaders like RequireJS, Browserify or webpack and all web browsers.
+dependencies. 
 
 ## Usage
 
@@ -63,70 +59,6 @@ and the data object as arguments:
 
 ```js
 document.getElementById("result").innerHTML = tmpl("tmpl-demo", data);
-```
-
-### Server-side
-
-The following is an example how to use the JavaScript Templates engine on the
-server-side with [node.js](http://nodejs.org/).
-
-Create a new directory and add the **tmpl.js** file. Or alternatively, install
-the **blueimp-tmpl** package with [npm](https://www.npmjs.org/):
-
-```sh
-npm install blueimp-tmpl
-```
-
-Add a file **template.html** with the following content:
-
-```html
-<!DOCTYPE HTML>
-<title>{%=o.title%}</title>
-<h3><a href="{%=o.url%}">{%=o.title%}</a></h3>
-<h4>Features</h4>
-<ul>
-{% for (var i=0; i<o.features.length; i++) { %}
-    <li>{%=o.features[i]%}</li>
-{% } %}
-</ul>
-```
-
-Add a file **server.js** with the following content:
-
-```js
-require("http").createServer(function (req, res) {
-    var fs = require("fs"),
-        // The tmpl module exports the tmpl() function:
-        tmpl = require("./tmpl"),
-        // Use the following version if you installed the package with npm:
-        // tmpl = require("blueimp-tmpl"),
-        // Sample data:
-        data = {
-            "title": "JavaScript Templates",
-            "url": "https://github.com/blueimp/JavaScript-Templates",
-            "features": [
-                "lightweight & fast",
-                "powerful",
-                "zero dependencies"
-            ]
-        };
-    // Override the template loading method:
-    tmpl.load = function (id) {
-        var filename = id + ".html";
-        console.log("Loading " + filename);
-        return fs.readFileSync(filename, "utf8");
-    };
-    res.writeHead(200, {"Content-Type": "text/x-tmpl"});
-    // Render the content:
-    res.end(tmpl("template", data));
-}).listen(8080, "localhost");
-console.log("Server running at http://localhost:8080/");
-```
-
-Run the application with the following command:
-
-```sh
-node server.js
 ```
 
 ## Requirements
